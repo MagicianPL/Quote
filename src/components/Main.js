@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import fetchData from "../helpers/fetchData";
 import StyledWrapper from "./StyledWrapper";
@@ -21,13 +20,26 @@ const Main = () => {
   }, []);
 
   //when data is fetched it's generate random object from an array
+  //Object is sets on randomQuote
   useEffect(() => {
     generateQuote(fetchedData, setRandomQuote);
   }, [fetchedData]);
 
-  const previousQuote = () => {
+  const showPreviousQuote = () => {
     setPrevQuote(randomQuote);
     setRandomQuote(prevQuote);
+  };
+
+  const handleGetQuoteClick = () => {
+    //It sets previous quote, generates new quote, sets prev btn
+    setPrevQuote(randomQuote);
+    generateQuote(fetchedData, setRandomQuote);
+    setDisabled(false);
+  };
+
+  const handlePreviousClick = () => {
+    showPreviousQuote();
+    setDisabled(true);
   };
 
   return (
@@ -36,23 +48,8 @@ const Main = () => {
         <>
           <blockquote>{randomQuote.quote}</blockquote>
           <p>{randomQuote.author}</p>
-          <button
-            onClick={() => {
-              setPrevQuote(randomQuote);
-              generateQuote(fetchedData, setRandomQuote);
-              setDisabled(false);
-            }}
-          >
-            CLICK
-          </button>
-          <p>ncdncdj</p>
-          <button
-            disabled={disabled}
-            onClick={() => {
-              previousQuote();
-              setDisabled(true);
-            }}
-          >
+          <button onClick={handleGetQuoteClick}>GET QUOTE</button>
+          <button disabled={disabled} onClick={handlePreviousClick}>
             Previous
           </button>
         </>
