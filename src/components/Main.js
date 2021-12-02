@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import fetchData from "../helpers/fetchData";
 import StyledWrapper from "./StyledWrapper";
 import generateQuote from "../helpers/generateQuote";
+import StyledButton from "./StyledButton";
 
 const Main = () => {
   const [fetchedData, setFetchedData] = useState([]);
@@ -47,11 +48,11 @@ const Main = () => {
       {randomQuote ? (
         <>
           <blockquote>{randomQuote.quote}</blockquote>
-          <p>{randomQuote.author}</p>
-          <button onClick={handleGetQuoteClick}>GET QUOTE</button>
-          <button disabled={disabled} onClick={handlePreviousClick}>
+          <p>{`- ${randomQuote.author}`}</p>
+          <StyledButton onClick={handleGetQuoteClick}>GET QUOTE</StyledButton>
+          <StyledButton disabled={disabled} onClick={handlePreviousClick}>
             Previous
-          </button>
+          </StyledButton>
         </>
       ) : null}
     </StyledWrapper>
